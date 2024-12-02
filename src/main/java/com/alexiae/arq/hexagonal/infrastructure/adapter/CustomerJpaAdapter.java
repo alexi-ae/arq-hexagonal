@@ -1,7 +1,7 @@
 package com.alexiae.arq.hexagonal.infrastructure.adapter;
 
 import com.alexiae.arq.hexagonal.domain.model.Customer;
-import com.alexiae.arq.hexagonal.domain.port.CustomerPersistencePort;
+import com.alexiae.arq.hexagonal.domain.port.out.CustomerPersistencePort;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.entity.CustomerEntity;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.mapper.CustomerDboMapper;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.repository.CustomerRepository;

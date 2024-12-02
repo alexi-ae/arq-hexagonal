@@ -1,7 +1,7 @@
 package com.alexiae.arq.hexagonal.application.mapper;
 
-import com.alexiae.arq.hexagonal.domain.dto.TransactionDto;
-import com.alexiae.arq.hexagonal.domain.dto.request.TransactionRequest;
+import com.alexiae.arq.hexagonal.application.dto.TransactionDto;
+import com.alexiae.arq.hexagonal.application.dto.request.TransactionRequest;
 import com.alexiae.arq.hexagonal.domain.model.Transaction;
 import org.mapstruct.Mapper;
 

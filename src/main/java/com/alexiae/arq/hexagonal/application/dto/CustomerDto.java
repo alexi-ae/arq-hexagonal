@@ -1,4 +1,4 @@
-package com.alexiae.arq.hexagonal.domain.dto;
+package com.alexiae.arq.hexagonal.application.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

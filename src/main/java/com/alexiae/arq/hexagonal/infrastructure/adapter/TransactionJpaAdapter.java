@@ -1,7 +1,7 @@
 package com.alexiae.arq.hexagonal.infrastructure.adapter;
 
 import com.alexiae.arq.hexagonal.domain.model.Transaction;
-import com.alexiae.arq.hexagonal.domain.port.TransactionPersistencePort;
+import com.alexiae.arq.hexagonal.domain.port.out.TransactionPersistencePort;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.entity.TransactionEntity;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.mapper.TransactionDboMapper;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.repository.TransactionRepository;

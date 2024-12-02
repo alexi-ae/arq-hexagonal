@@ -1,7 +1,7 @@
 package com.alexiae.arq.hexagonal.infrastructure.adapter;
 
 import com.alexiae.arq.hexagonal.domain.model.Account;
-import com.alexiae.arq.hexagonal.domain.port.AccountPersistencePort;
+import com.alexiae.arq.hexagonal.domain.port.out.AccountPersistencePort;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.entity.AccountEntity;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.mapper.AccountDboMapper;
 import com.alexiae.arq.hexagonal.infrastructure.adapter.repository.AccountRepository;

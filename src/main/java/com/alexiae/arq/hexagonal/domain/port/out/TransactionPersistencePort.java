@@ -1,4 +1,4 @@
-package com.alexiae.arq.hexagonal.domain.port;
+package com.alexiae.arq.hexagonal.domain.port.out;
 
 import com.alexiae.arq.hexagonal.domain.model.Account;
 import com.alexiae.arq.hexagonal.domain.model.Transaction;
