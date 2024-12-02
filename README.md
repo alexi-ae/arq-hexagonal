@@ -11,144 +11,74 @@ La **Arquitectura Hexagonal**, también conocida como **Arquitectura de Puertos 
 ## Estructura del Proyecto
 
 A continuación se presenta la estructura del proyecto base, junto con una breve explicación de cada paquete:
-```shell
+``` shell
 src
-└── main
-    ├── java
-    │   └── com
-    │       └── alexiae
-    │           └── arq
-    │               └── hexagonal
-    │                   |   ArqHexagonalApplication.java
-    │                   |
-    │                   +--- application
-    │                   |   +--- mapper
-    │                   |   |       AccountMapper.java
-    │                   |   |       CustomerMapper.java
-    │                   |   |       TransactionMapper.java
-    │                   |   |
-    │                   |   +--- service
-    │                   |   |       AccountManagementService.java
-    │                   |   |       CustomerManagementService.java
-    │                   |   |       TransactionManagementService.java
-    │                   |   |
-    │                   |   \--- usercase
-    │                   |           AccountService.java
-    │                   |           CustomerService.java
-    │                   |           TransactionService.java
-    │                   |
-    │                   +--- domain
-    │                   |   +--- dto
-    │                   |   |   |   AccountDto.java
-    │                   |   |   |   CustomerDto.java
-    │                   |   |   |   TransactionDto.java
-    │                   |   |   |
-    │                   |   |   \--- request
-    │                   |   |           AccountRequest.java
-    │                   |   |           CustomerRequest.java
-    │                   |   |           TransactionRequest.java
-    │                   |   |
-    │                   |   +--- model
-    │                   |   |       Account.java
-    │                   |   |       Customer.java
-    │                   |   |       Transaction.java
-    │                   |   |
-    │                   |   \--- port
-    │                   |           AccountPersistencePort.java
-    │                   |           CustomerPersistencePort.java
-    │                   |           TransactionPersistencePort.java
-    │                   |
-    │                   +--- infrastructure
-    │                   |   +--- adapter
-    │                   |   |   AccountJpaAdapter.java
-    │                   |   |   CustomerJpaAdapter.java
-    │                   |   |   TransactionJpaAdapter.java
-    │                   |   |
-    │                   |   +--- entity
-    │                   |   |       AccountEntity.java
-    │                   |   |       CustomerEntity.java
-    │                   |   |       TransactionEntity.java
-    │                   |   |
-    │                   |   +--- mapper
-    │                   |   |       AccountDboMapper.java
-    │                   |   |       CustomerDboMapper.java
-    │                   |   |       TransactionDboMapper.java
-    │                   |   |
-    │                   |   \--- repository
-    │                   |           AccountRepository.java
-    │                   |           CustomerRepository.java
-    │                   |           TransactionRepository.java
-    │                   |
-    │                   \--- rest
-    │                           AccountController.java
-    │                           CustomerController.java
-    │                           TransactionController.java
-    │
-    └── resources
-        |   application.properties
-        |
-        +--- static
-        \--- templates
-└── test
-    \--- java
-        \--- com
-            \--- alexiae
-                \--- arq
-                    \--- hexagonal
+├───main
+│   ├───java
+│   │   └───com
+│   │       └───alexiae
+│   │           └───arq
+│   │               └───hexagonal
+│   │                   │   ArqHexagonalApplication.java
+│   │                   │
+│   │                   ├───application          # Lógica de aplicación
+│   │                   │   ├───dto              # Objetos de transferencia de datos
+│   │                   │   ├───mapper           # Conversión entre modelos y DTOs
+│   │                   │   ├───service          # Servicios de aplicación
+│   │                   │   └───usercase         # Implementaciones de casos de uso
+│   │                   │
+│   │                   ├───domain               # Lógica de negocio
+│   │                   │   ├───model            # Modelos de dominio
+│   │                   │   └───port             # Interfaces para entrada y salida
+│   │                   │       ├───in           # Interfaces de entrada (Use Cases)
+│   │                   │       └───out          # Interfaces de salida (Adapters)
+│   │                   │
+│   │                   └───infrastructure       # Interacción con el mundo exterior
+│   │                       ├───adapter          # Implementaciones de puertos de salida
+│   │                       ├───entity           # Entidades de persistencia
+│   │                       ├───mapper           # Conversión entre entidades y modelos
+│   │                       ├───repository       # Repositorios JPA
+│   │                       └───rest             # Controladores REST
+│   │
+│   └───resources
+│       ├───application.properties               # Configuración de la aplicación
+│       ├───static                                # Recursos estáticos
+│       └───templates                             # Plantillas HTML
+└───test
+    └───java
+        └───com
+            └───alexiae
+                └───arq
+                    └───hexagonal
                             ArqHexagonalApplicationTests.java
-
 ```
 
-# Descripción de Cada Paquete
+### Capas y sus responsabilidades
 
-##  application
-Contiene la lógica de aplicación, incluyendo servicios y mapeadores que transforman datos entre diferentes capas.
+1. **Application**: Contiene la lógica de aplicación, incluyendo servicios, DTOs y casos de uso.
+    - **DTO**: Objetos para transferir datos entre capas.
+    - **Mapper**: Conversión entre entidades y DTOs.
+    - **Service**: Implementaciones de servicios que coordinan los casos de uso.
+    - **UserCase**: Casos de uso específicos que implementan las interfaces definidas en la capa de dominio.
 
-- ### mapper
-Clases que se encargan de convertir entre entidades y DTOs (Data Transfer Objects).
+2. **Domain**: Representa la lógica central del negocio.
+    - **Model**: Entidades principales del dominio (`Account`, `Customer`, `Transaction`).
+    - **Port**: Interfaces para comunicación entre la lógica de negocio y otras capas.
+        - **In**: Interfaces para casos de uso.
+        - **Out**: Interfaces para persistencia y otros servicios externos.
 
-- ### service
-Servicios que implementan la lógica de negocio y gestionan las operaciones relacionadas con las entidades.
+3. **Infrastructure**: Maneja las interacciones con el mundo exterior.
+    - **Adapter**: Implementaciones de los puertos de salida (`Out`).
+    - **Entity**: Representación de las entidades para la persistencia en la base de datos.
+    - **Repository**: Interfaces de Spring Data JPA.
+    - **Rest**: Controladores REST para la comunicación con la capa de aplicación.
 
-- ### usercase
-Clases que representan casos de uso específicos de la aplicación, encapsulando la lógica necesaria para ejecutar acciones.
+## Requisitos
 
-## - domain
-Contiene las entidades del dominio y sus representaciones.
-
-- ### dto
-Clases que representan los objetos de transferencia de datos utilizados para la comunicación entre capas.
-
-- ### model
-Clases que representan las entidades del dominio, reflejando la lógica de negocio.
-
-- ### port
-Interfaces que definen los contratos para la persistencia de datos, permitiendo la implementación de diferentes adaptadores.
-
-## infrastructure
-Contiene las implementaciones específicas de la infraestructura, como adaptadores y repositorios.
-
-- ### adapter
-Implementaciones que conectan la lógica de negocio con la infraestructura externa (por ejemplo, bases de datos).
-
-#### - entity
-Clases que representan las entidades en la base de datos, reflejando la estructura de datos persistente.
-
-#### - mapper
-Clases que convierten entre entidades de la base de datos y modelos de dominio.
-
-#### - repository
-Interfaces que definen las operaciones de acceso a datos, permitiendo la interacción con la base de datos.
-
-- ### rest
-Controladores REST que manejan las solicitudes HTTP y responden a los clientes, actuando como la interfaz entre el usuario y la lógica de negocio.
-
-## resources
-Archivos de configuración y recursos estáticos utilizados por la aplicación, como el archivo `application.properties` para la configuración de la aplicación.
-
-## test
-Contiene las pruebas unitarias y de integración para la aplicación, asegurando que la lógica de negocio funcione correctamente.
-
+- **Java 17+**
+- **Spring Boot 3.3.4**
+- **Base de datos**: PostgreSQL (configurable)
+- **Maven**
 ---
 
 # Conclusión
